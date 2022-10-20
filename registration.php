@@ -1,8 +1,8 @@
 <?php
     require_once "DataBase.php";
     
-    $nome = $email = $password = $confirm_password = "";
-    $nome_err = $email_err = $password_err = $confirm_password_err = "";
+    $nome = $email = $senha = $confirm_senha = "";
+    $nome_err = $email_err = $senha_err = $confirm_senha_err = "";
    
     //$_SERVER array contendo informações essenciais de servidor, como cabeçalho, path e localização de scripts
     $conn = new mysqli("localhost", "root", "", "QeA_Lab3_Teste_1");
@@ -35,7 +35,7 @@
                     echo "Algo deu errado.";
                 }
                 $conn->next_result();
-                //Fecha a declaração
+                //Fecha a declaração 
                 $stmt->close();
 
             }
@@ -72,34 +72,34 @@
 
 
         //Senha
-        if(empty(trim($_POST["password"]))){
-            $password_err = "Please enter a password.";     
-        } elseif(strlen(trim($_POST["password"])) < 6){
-            $password_err = "Password must have atleast 6 characters.";
+        if(empty(trim($_POST["senha"]))){
+            $senha_err = "Please enter a senha.";     
+        } elseif(strlen(trim($_POST["senha"])) < 6){
+            $senha_err = "senha must have atleast 6 characters.";
         } else{
-            $password = trim($_POST["password"]);
+            $senha = trim($_POST["senha"]);
         }
-        if(empty(trim($_POST["confirm_password"]))){
-            $confirm_password_err = "Please confirm password.";     
+        if(empty(trim($_POST["confirm_senha"]))){
+            $confirm_senha_err = "Please confirm senha.";     
         } else{
-            $confirm_password = trim($_POST["confirm_password"]);
-            if(empty($password_err) && ($password != $confirm_password)){
-                $confirm_password_err = "Password did not match.";
+            $confirm_senha = trim($_POST["confirm_senha"]);
+            if(empty($senha_err) && ($senha != $confirm_senha)){
+                $confirm_senha_err = "senha did not match.";
             }
         }
 
         //verifica por erros antes de enviar para o banco, todas as variaveis de erro devem estar vazias.
-        if(empty($nome_err) && empty($password_err) && empty($confirm_password_err)){
+        if(empty($nome_err) && empty($senha_err) && empty($confirm_senha_err)){
             //Prepara a declaração de insersão
             $sql3 = "INSERT INTO tb_usuarios (nome, email, senha) VALUES (?, ?, ?)";
 
             if($stmt = $conn->prepare($sql3)){
                 //interliga as variaveis como parametros na declaração preparada
-                $stmt->bind_param("sss", $param_nome, $param_email, $param_password);
+                $stmt->bind_param("sss", $param_nome, $param_email, $param_senha);
 
                 $param_nome = $nome;
                 $param_email = $email;
-                $param_password = password_hash($password, PASSWORD_DEFAULT);//Criptografa a senha com HASH
+                $param_senha = password_hash($senha, PASSWORD_DEFAULT);//Criptografa a senha com HASH
             if($stmt->execute()){
                 //redireciona para a pagina de login após tentar execurtar a declaração
                 header("location: login.php");
@@ -116,7 +116,7 @@
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
 <meta charset="UTF-8">
     <title>Sign Up</title>
@@ -138,14 +138,14 @@
                 <span class="invalid-feedback"><?php echo $nome_err; ?></span>
             </div>    <br>
             <div>
-                <label>Password</label><br>
-                <input type="password" name="password" <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?> value="<?php echo $password; ?>">
-                <span class="invalid-feedback"><?php echo $password_err; ?></span>
+                <label>senha</label><br>
+                <input type="senha" name="senha" <?php echo (!empty($senha_err)) ? 'is-invalid' : ''; ?> value="<?php echo $senha; ?>">
+                <span class="invalid-feedback"><?php echo $senha_err; ?></span>
             </div><br>
             <div>
-                <label>Confirm Password</label><br>
-                <input type="password" name="confirm_password" <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?> value="<?php echo $confirm_password; ?>">
-                <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
+                <label>Confirm senha</label><br>
+                <input type="senha" name="confirm_senha" <?php echo (!empty($confirm_senha_err)) ? 'is-invalid' : ''; ?> value="<?php echo $confirm_senha; ?>">
+                <span class="invalid-feedback"><?php echo $confirm_senha_err; ?></span>
             </div><br>
             <div>
                 <label>Email</label><br>
