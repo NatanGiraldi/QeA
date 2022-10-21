@@ -1,7 +1,8 @@
 <?php
     require_once "DataBase.php";
-    
-    $nome = $email = $senha = $confirm_senha = "";
+    $email = "";
+    $confirm_senha = "";
+    $nome =  $senha =  "";
     $nome_err = $email_err = $senha_err = $confirm_senha_err = "";
    
     //$_SERVER array contendo informações essenciais de servidor, como cabeçalho, path e localização de scripts
@@ -79,8 +80,10 @@
         } else{
             $senha = trim($_POST["senha"]);
         }
+
+
         if(empty(trim($_POST["confirm_senha"]))){
-            $confirm_senha_err = "Please confirm senha.";     
+            $confirm_senha_err = "Please confirma senha.";     
         } else{
             $confirm_senha = trim($_POST["confirm_senha"]);
             if(empty($senha_err) && ($senha != $confirm_senha)){
@@ -99,7 +102,7 @@
 
                 $param_nome = $nome;
                 $param_email = $email;
-                $param_senha = password_hash($senha, PASSWORD_DEFAULT);//Criptografa a senha com HASH
+                $param_senha = $senha;//Criptografa a senha com HASH
             if($stmt->execute()){
                 //redireciona para a pagina de login após tentar execurtar a declaração
                 header("location: login.php");
@@ -119,6 +122,7 @@
 <html lang="pt">
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <title>Sign Up</title>
     <style>
         body{ font: 14px sans-serif; }

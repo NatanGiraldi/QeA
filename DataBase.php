@@ -28,16 +28,12 @@
     }
 
     // Create database
-    $sql = "CREATE DATABASE IF NOT EXISTS QeA_Lab3_Teste_1";
-    if ($conn->query($sql) === TRUE) {
-    echo "Database created successfully";
-    } else {
+    $sqlcreate = "CREATE DATABASE IF NOT EXISTS QeA_Lab3_Teste_1";
+    if ($conn->query($sqlcreate) === TRUE) { 
+    $conn = new mysqli($servername, $username, $password, "QeA_Lab3_Teste_1");
+     } else {
     echo "Error creating database";
     }
-
-    $conn = new mysqli($servername, $username, $password, "QeA_Lab3_Teste_1");
-
-    require_once "TBcreation.php";
-
-    require "registration.php";
+require_once "TBcreation.php";
+    require "login.php";
 ?>

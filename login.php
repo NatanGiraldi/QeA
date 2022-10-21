@@ -1,13 +1,10 @@
 <?php
 // Initialize the session
-session_start();
+//session_start();
  
 // Check if the user is already logged in, if yes then redirect him to welcome page
-if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    header("location: welcome.php");
-    exit;
-}
- 
+
+ $conn = new mysqli("localhost", "root", "", "QeA_Lab3_Teste_1");
 // Include config file
 require_once "DataBase.php";
  
@@ -37,7 +34,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         // Prepare a select statement
         $sql = "SELECT id_aluno, nome, senha FROM tb_usuarios WHERE nome = ?";
         
-        if($stmt = $mysqli->prepare($sql)){
+        if($stmt = $conn->prepare($sql)){
             // Bind variables to the prepared statement as parameters
             $stmt->bind_param("s", $param_nome);
             
@@ -52,9 +49,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 // Check if nome exists, if yes then verify senha
                 if($stmt->num_rows == 1){                    
                     // Bind result variables
-                    $stmt->bind_result($id, $nome, $hashed_senha);
+                    $stmt->bind_result($id, $nome, $senha);
                     if($stmt->fetch()){
-                        if(password_verify($senha, $hashed_senha)){
+                       
                             // senha is correct, so start a new session
                             session_start();
                             
@@ -64,18 +61,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             $_SESSION["nome"] = $nome;                            
                             
                             // Redirect user to welcome page
-                            header("location: menu.php");
+                            header("location: mainMenu.php");
                         } else{
                             // senha is not valid, display a generic error message
-                            $login_err = "Invalid nome or senha.";
+                            $login_err = "Nome ou senha invalidos.";
                         }
                     }
                 } else{
                     // nome doesn't exist, display a generic error message
-                    $login_err = "Invalid nome or senha.";
+                    $login_err = "Nome ou senha invalidos.";
                 }
             } else{
-                echo "Oops! Something went wrong. Please try again later.";
+                echo "Algo deu errado.";
             }
 
             // Close statement
@@ -84,12 +81,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
     
     // Close connection
-    $mysqli->close();
-}
+    //$conn->close();
+
 ?>
  
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
@@ -102,7 +99,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <body>
     <div class="wrapper">
         <h2>Login</h2>
-        <p>Please fill in your credentials to login.</p>
+        <p>Preenha os campos para entrar</p>
 
         <?php 
         if(!empty($login_err)){
@@ -124,7 +121,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <div class="form-group">
                 <input type="submit" class="btn btn-primary" value="Login">
             </div>
-            <p>Don't have an account? <a href="register.php">Sign up now</a>.</p>
+            <p>Clique aqui para se registrar: <a href="registration.php">Registrar-se</a>.</p>
         </form>
     </div>
 </body>
