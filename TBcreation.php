@@ -38,21 +38,11 @@ CREATE TABLE IF NOT EXISTS tb_respostas(
     FOREIGN KEY (id_aluno) REFERENCES tb_usuarios(id_aluno)
 );
 EOT;
+$sqlV = "INSERT INTO tb_disciplinas (disciplina) VALUES ('AOC'), ('Estatistica'), ('Fundamentos de rede'), ('OtimizacaoDB');";
 
 $conn->query($sqlI);
 $conn->query($sqlII);
 $conn->query($sqlIII);
 $conn->query($sqlVI);
-
-/*=====================================================================
-   Erro: MySqli Commands out of sync; you can't run this command now 
-
-   Problema descrito: You are calling client functions in the wrong order.
-   A query executada de criação de tabelas estava conflitanto com a query 
-   de seleção de aluno $sql1
-
-   Resolução momentanea: Fechar conexão e reabrir no registration.php
-========================================================================*/
-//$conn->close();
-
+$conn->query($sqlV);
 ?>
