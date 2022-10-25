@@ -34,6 +34,8 @@
      } else {
     echo "Error creating database";
     }
-require_once "TBcreation.php";
-    require "login.php";
+    require_once "TBcreation.php";
+    //definir boolean para que: Se for falso, abrir login normal, se for verdadeiro,
+    //significa que o usuario clicou em registrar-se, ou seja
+    require_once "login.php";
 ?>

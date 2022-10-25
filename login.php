@@ -62,6 +62,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             
                             // Redirect user to welcome page
                             header("location: mainMenu.php");
+                            
                         } else{
                             // senha is not valid, display a generic error message
                             $login_err = "Nome ou senha invalidos.";
