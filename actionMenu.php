@@ -19,7 +19,6 @@
 </html>
 <?php
 session_start();
-     $materia = $_SESSION['materia'];
     // Check if form is submitted successfully
     if(isset($_POST["submit2"]))
     {
@@ -28,8 +27,24 @@ session_start();
         {
             // Retrieving each selected option
             foreach ($_POST['acao'] as $acao)
-                print "Você selecionou a materia: $materia<br/>";
-                print "Você selecionou a ação:    $acao<br/>";
+            
+            switch ($acao){
+                case "add":
+                  header("location: operations\insertion.php");
+                break;
+                case "resp":
+                  header("location: answer.php");
+                break;
+                case "del":
+                  header("location: remove.php");
+                break;
+                case "edit":
+                  header("location: editing.php");
+                break;
+                default:
+                    echo "ERROR SWITCH CASE MENU";
+                break;
+              }
         }
     else
         echo "Selecione uma ação!";

@@ -19,7 +19,7 @@
     </body>
 </html>
 <?php
-     
+session_start();
     // Check if form is submitted successfully
     if(isset($_POST["submit1"]))
     {
@@ -31,6 +31,7 @@
             foreach ($_POST['materia'] as $materia)
                 print "You selected $materia<br/>";
             $_SESSION['materia'] = $materia;
+           
         }
         
     else
