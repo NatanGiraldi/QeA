@@ -4,7 +4,7 @@ require_once "DataBase.php";
 $sqlI = <<<EOT
 CREATE TABLE IF NOT EXISTS tb_disciplinas(
     id_disciplina int not null auto_increment primary key,
-    disciplina VARCHAR(40)
+    disciplina VARCHAR(40) UNIQUE 
 );
 EOT;
 $sqlII = <<<EOT
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS tb_usuarios(
     senha VARCHAR(10)
 );
 EOT;
-$sqlVI = <<<EOT
+$sqlIV = <<<EOT
 CREATE TABLE IF NOT EXISTS tb_respostas(
     id_pg int,
     id_aluno int,
@@ -38,11 +38,13 @@ CREATE TABLE IF NOT EXISTS tb_respostas(
     FOREIGN KEY (id_aluno) REFERENCES tb_usuarios(id_aluno)
 );
 EOT;
-$sqlV = "INSERT INTO tb_disciplinas (disciplina) VALUES ('AOC'), ('Estatistica'), ('Fundamentos de rede'), ('OtimizacaoDB');";
+
+
+$sqlV = "INSERT IGNORE INTO tb_disciplinas (disciplina) VALUES ('Arquitetura e Organização de Computadores'), ('Estatistica'), ('Fundamentos de rede'), ('Otimização de Banco de Dados');";
 
 $conn->query($sqlI);
 $conn->query($sqlII);
 $conn->query($sqlIII);
-$conn->query($sqlVI);
+$conn->query($sqlIV);
 $conn->query($sqlV);
 ?>

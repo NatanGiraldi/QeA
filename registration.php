@@ -143,12 +143,12 @@
             </div>    <br>
             <div>
                 <label>senha</label><br>
-                <input type="senha" name="senha" <?php echo (!empty($senha_err)) ? 'is-invalid' : ''; ?> value="<?php echo $senha; ?>">
+                <input type="password" name="senha" <?php echo (!empty($senha_err)) ? 'is-invalid' : ''; ?> value="<?php echo $senha; ?>">
                 <span class="invalid-feedback"><?php echo $senha_err; ?></span>
             </div><br>
             <div>
                 <label>Confirm senha</label><br>
-                <input type="senha" name="confirm_senha" <?php echo (!empty($confirm_senha_err)) ? 'is-invalid' : ''; ?> value="<?php echo $confirm_senha; ?>">
+                <input type="password" name="confirm_senha" <?php echo (!empty($confirm_senha_err)) ? 'is-invalid' : ''; ?> value="<?php echo $confirm_senha; ?>">
                 <span class="invalid-feedback"><?php echo $confirm_senha_err; ?></span>
             </div><br>
             <div>
