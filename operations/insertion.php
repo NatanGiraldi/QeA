@@ -1,7 +1,7 @@
 <?php 
 
 session_start();
-    $question = $alt1 = $alt2 = $alt3 = $alt4 = $altCorreta = "";
+    $question = $alt1 = $alt2 = $alt3 = $alt4 = $altCorreta = $id_Discipline = "";
     $question_error = $alt1_error = $alt2_error = $alt3_error = $alt4_error = $altCorreta_error = "";
     $materia = $_SESSION['materia'];
     $conn = new mysqli("localhost", "root", "", "QeA_Lab3_Teste_1");
@@ -9,37 +9,38 @@ session_start();
     switch($materia){
         case "est":
             $dispMateria = "Estatistica";
+            $id_Discipline = "2";
         break;
         case "aoc":
             $dispMateria = "Arquitetura e Organização de Computadores";
+            $id_Discipline = "1";
         break;
         case "otm":
             $dispMateria = "Otimização de Banco de Dados";
+            $id_Discipline = "4";
         break;
         case "fund":
             $dispMateria = "Fundamentos de Rede";
+            $id_Discipline = "3";
         break;
         default:
             $dispMateria = "Erro: Nenhuma matéria selecionada!";
+            $id_Discipline = "0";
         break;
     }
 //function inserirQuestao($conn, $question, $materia, $dispMateria, $insertQuestion, $alt1, $alt2, $alt3, $alt4, $altCorreta){
     
-   
+   /* $sqlGETDisciplineID = "SELECT id_disciplina FROM tb_disciplinas WHERE disciplina = ?";
+    $stmt = $conn->prepare($sqlGETDisciplineID);
+    $stmt->bind_param("s", $dispMateria);
+    $stmt->execute();
+    $id_Discipline = $stmt->fetch();
+    $stmt->close();
+    */
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     
 
-
-    $sqlGETDisciplineID = "SELECT id_disciplina FROM tb_disciplinas WHERE disciplina = ?";
-    if($stmt = $conn->prepare($sqlGETDisciplineID)){
-        $stmt->bind_param("s", $dispMateria);
-        $stmt->execute();
-        $id_Discipline = $stmt->fetch();
-
-        $stmt->close();
-    }
-    
     if(empty(trim($_POST["questao"]))){
         $question_error = "Informe o enunciado da questao.";
     }else{
@@ -85,23 +86,26 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $alt4 = trim($_POST["alt4"]);
     }
 
-    if(isset($_POST["altCorreta"])){
-        $altCorreta = $_POST["altCorreta"];
-    }
-
+  if(isset($_POST["altCorreta"])){
+    $altCorreta = trim($_POST["altCorreta"]);
+  }else{
+    echo "ERRO NA ALTCORRETA!!!";
+  }
+  //$_POST["altCorreta"] = ( isset($_POST["altCorreta"]) ) ? $_POST["altCorreta"] : null;  
 
     if(empty($question_error) && empty($alt1_error) && empty($alt2_error) && empty($alt3_error) && empty($alt4_error)){
         $sqlInsertQuestion = "INSERT INTO tb_perguntas (questao, alternativa1, alternativa2, alternativa3, alternativa4, alt_correta, id_disciplina) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         if($stmt = $conn->prepare($sqlInsertQuestion)){
             $stmt->bind_param("sssssii", $insertQuestion, $in_alt1, $in_alt2, $in_alt3, $in_alt4, $in_altCorreta, $id_Discipline);
-
+            
+            $insertQuestion = $question;
             $in_alt1 = $alt1;
             $in_alt2 = $alt2;
             $in_alt3 = $alt3;
             $in_alt4 = $alt4;
             $in_altCorreta = $altCorreta;
-            $insertQuestion = $question;
+            
            
             if($stmt->execute()){
                 header("location: success.HTML");
@@ -161,12 +165,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             </div>
             <div>
                 <h3>Selecione a alternativa correta para esta questão:</h3>
-                <input type="ratio" value = A name="altCorreta" class="button" <?php $altCorreta = "1"?>> 
-                <input type="ratio" value = B name="altCorreta" class="button" <?php $altCorreta = "2"?>> 
-                <input type="ratio" value = C name="altCorreta" class="button" <?php $altCorreta = "3"?>>       
-                <input type="ratio" value = D name="altCorreta" class="button" <?php $altCorreta = "4"?>> <br/>
+            <p>
+                <input type="radio" name="altCorreta" value="1"/> 1
+                <input type="radio" name="altCorreta" value="2"/> 2
+                <input type="radio" name="altCorreta" value="3"/> 3
+                <input type="radio" name="altCorreta" value="4"/> 4
+            </p>
 
-            <input type="SUBMIT" value="Inserir questão">
+            <input type="submit" value="Inserir questao">
                 
             </div>
         </form>
