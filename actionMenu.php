@@ -33,13 +33,13 @@ session_start();
                   header("location: operations\insertion.php");
                 break;
                 case "resp":
-                  header("location: answer.php");
+                  header("location: operations\answer.php");
                 break;
                 case "del":
-                  header("location: remove.php");
+                  header("location: operations\Remove.php");
                 break;
                 case "edit":
-                  header("location: editing.php");
+                  header("location: operations\Editing.php");
                 break;
                 default:
                     echo "ERROR SWITCH CASE MENU";

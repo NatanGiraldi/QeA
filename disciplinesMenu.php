@@ -29,7 +29,7 @@ session_start();
             header("location:  actionMenu.php");
             // Retrieving each selected option
             foreach ($_POST['materia'] as $materia)
-                print "You selected $materia<br/>";
+            //   print "You selected $materia<br/>";
             $_SESSION['materia'] = $materia;
            
         }

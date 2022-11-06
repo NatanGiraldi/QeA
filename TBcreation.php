@@ -4,13 +4,13 @@ require_once "DataBase.php";
 $sqlI = <<<EOT
 CREATE TABLE IF NOT EXISTS tb_disciplinas(
     id_disciplina int not null auto_increment primary key,
-    disciplina VARCHAR(40) UNIQUE 
+    disciplina VARCHAR(41) UNIQUE 
 );
 EOT;
 $sqlII = <<<EOT
 CREATE TABLE IF NOT EXISTS tb_perguntas(
     id_pg int not null auto_increment PRIMARY KEY,
-    questao VARCHAR(200),
+    questao VARCHAR(400),
     alternativa1 VARCHAR(100),
     alternativa2 VARCHAR(100),
     alternativa3 VARCHAR(100),

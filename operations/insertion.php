@@ -1,6 +1,5 @@
 <?php 
-
-session_start();
+    session_start();
     $question = $alt1 = $alt2 = $alt3 = $alt4 = $altCorreta = $id_Discipline = "";
     $question_error = $alt1_error = $alt2_error = $alt3_error = $alt4_error = $altCorreta_error = "";
     $materia = $_SESSION['materia'];
@@ -28,6 +27,7 @@ session_start();
             $id_Discipline = "0";
         break;
     }
+   
 //function inserirQuestao($conn, $question, $materia, $dispMateria, $insertQuestion, $alt1, $alt2, $alt3, $alt4, $altCorreta){
     
    /* $sqlGETDisciplineID = "SELECT id_disciplina FROM tb_disciplinas WHERE disciplina = ?";
@@ -150,7 +150,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         ?>" method="post">
             <div>
                 <label>Digite o enunciado da questão:</label><br/>
-                    <textarea autofocus style="width: 450px; height: 70px;" name="questao" maxlength="200" id="questionText" value="<?php echo $question; ?> "> </textarea>
+                    <textarea autofocus style="width: 450px; height: 70px;" name="questao" maxlength="400" id="questionText" value="<?php echo $question; ?> "> </textarea>
             </div> <br/>
             <div>
                 <h3>Digite as alternativas</h3>
