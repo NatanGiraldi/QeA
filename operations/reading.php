@@ -55,6 +55,7 @@ session_start();
             }
         ?>
         </table></br>
+        
     </form>
     <p>Clique aqui para voltar ao menu de ações: <a href="../actionMenu.php">Voltar</a>.</p>
 

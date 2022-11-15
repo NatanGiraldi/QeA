@@ -46,7 +46,7 @@ session_start();
 
     <h3>Teste de coleta de perguntas</h3>
     <?php
-
+ 
         if($total > 0){
             
             do{
