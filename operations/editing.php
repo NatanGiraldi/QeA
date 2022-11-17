@@ -54,11 +54,7 @@ session_start();
                 echo"<tr>";
                     echo "<td><input type='radio' name='id_pg_edit[]' value='".$row['id_pg']."'><td width=250px>".$row['questao']."</td><td> 1). " . $row['alternativa1'] ."</td> <td> 2). " . $row['alternativa2'] ."</td> <td> 3). " . $row['alternativa3'] ."</td><td> 4). " . $row['alternativa4'] ."</td>  <td>" .$row['alt_correta'] . "</td>";
                 echo"</tr>";
-                /*$row['id_pg'] = $id_Question;
-                if(isset($_POST["materia"])){
-                foreach($_POST['id_pgg'] as $id_pg_edit);
-                $_SESSION['id_pgg'] = $id_pg_edit;
-                }*/
+               
             }
         ?>
         </table></br>
