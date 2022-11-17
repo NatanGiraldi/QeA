@@ -36,7 +36,7 @@ session_start();
     ?>
 
     <h2>Questões relacionadas a materia de: <?php print "$dispMateria"; ?></h2>
-    <form method="post" action="Actions\removing.php">
+    <form method="post"">
     <table cellpadding="10" border="1" >    
     <tr>
             <th>ID</th>
